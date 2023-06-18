@@ -33,7 +33,12 @@
           <span class="info">Turn For X</span>
           <button id="Reset"><h2>Reset</h2></button>
         </div>
-        <div class="gif"><img src="excited.gif" alt="*v*" /></div>
+        <div class="gif">
+          <img
+            src="https://pngimg.com/uploads/game_over/game_over_PNG57.png"
+            alt="*v*"
+          />
+        </div>
       </div>
     </div>
   </body>
@@ -77,7 +82,7 @@
           isgameover = true;
           document
             .querySelector(".gif")
-            .getElementsByTagName("img")[0].style.width = "75%";
+            .getElementsByTagName("img")[0].style.width = "40%";
           document.querySelector(".line").style.width = "20vw";
           document.querySelector(
             ".line"
@@ -117,7 +122,7 @@
         .getElementsByTagName("img")[0].style.width = "0px";
       document.getElementsByClassName("info")[0].style.color =
         "rgb(55, 26, 63)";
-      document.getElementsByClassName("info")[0].style.fontSize = "70px";
+      document.getElementsByClassName("info")[0].style.fontSize = "200%";
       document.querySelector(".line").style.width = "0%";
       document.querySelector(".line").style.visibility = "hidden";
     });
@@ -165,10 +170,10 @@
       background-color: rgb(222, 219, 231);
     }
     .gif img {
-      width: 0px;
+      width: 0%;
     }
     .info {
-      font-size: 70px;
+      font-size: 200%;
       font-weight: bold;
       color: rgb(55, 26, 63);
       margin: 20px;
@@ -176,11 +181,11 @@
     }
 
     #Reset {
-      size: 50px;
+      size: 30%;
       background-color: rgb(190, 214, 216);
       color: rgb(28, 63, 56);
-      border-radius: 2px;
-      padding: 15px 20px;
+      border-radius: 27px;
+      padding: 0px 29px;
     }
     #welcome {
       font-family: cursive;
