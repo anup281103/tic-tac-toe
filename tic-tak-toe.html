@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <nav class="heading">
+      <ul>
+        <h1>ONLINE TICTAKTOE</h1>
+      </ul>
+    </nav>
+    <div class="gamecontainer">
+      <div class="container">
+        <div class="line"></div>
+        <div class="Box"><span class="boxtext"></span></div>
+        <div class="Box"><span class="boxtext"></span></div>
+        <div class="Box"><span class="boxtext"></span></div>
+        <div class="Box"><span class="boxtext"></span></div>
+        <div class="Box"><span class="boxtext"></span></div>
+        <div class="Box"><span class="boxtext"></span></div>
+        <div class="Box"><span class="boxtext"></span></div>
+        <div class="Box"><span class="boxtext"></span></div>
+        <div class="Box"><span class="boxtext"></span></div>
+      </div>
+
+      <div class="gameinfo">
+        <h2 id="welcome">WELCOME TO TIC TAK TOE</h2>
+        <div>
+          <span class="info">Turn For X</span>
+          <button id="Reset"><h2>Reset</h2></button>
+        </div>
+        <div class="gif"><img src="excited.gif" alt="*v*" /></div>
+      </div>
+    </div>
+  </body>
+  <!-- ____________________________HTML END_______________________________ -->
+
+  <!-- ____________________________SCRIPT START_______________________________ -->
+  <script>
+    let music = new Audio("music.mp3");
+    let audioTurn = new Audio("ting.mp3");
+    let gameover = new Audio("gameover.mp3");
+    let turn = "X";
+    let isgameover = false;
+
+    const changeTurn = () => {
+      return turn === "X" ? "0" : "X";
+    };
+
+    const checkwin = () => {
+      let boxtext = document.getElementsByClassName("boxtext");
+      let wins = [
+        [0, 1, 2, 5, 5, 0],
+        [3, 4, 5, 5, 15, 0],
+        [6, 7, 8, 5, 25, 0],
+        [0, 3, 6, -5, 15, 90],
+        [1, 4, 7, 5, 15, 90],
+        [2, 5, 8, 15, 15, 90],
+        [0, 4, 8, 5, 15, 45],
+        [2, 4, 6, 5, 15, 135],
+      ];
+      wins.forEach((e) => {
+        if (
+          boxtext[e[0]].innerText === boxtext[e[1]].innerText &&
+          boxtext[e[2]].innerText === boxtext[e[1]].innerText &&
+          boxtext[e[0]].innerText !== ""
+        ) {
+          document.querySelector(".line").style.visibility = "visible"; //new line
+          document.getElementsByClassName("info")[0].innerText =
+            boxtext[e[1]].innerText + " Won";
+          document.getElementsByClassName("info")[0].style.color = "darkgreen";
+          document.getElementsByClassName("info")[0].style.fontSize = "100px";
+          isgameover = true;
+          document
+            .querySelector(".gif")
+            .getElementsByTagName("img")[0].style.width = "75%";
+          document.querySelector(".line").style.width = "20vw";
+          document.querySelector(
+            ".line"
+          ).style.transform = `translate(${e[3]}vw,${e[4]}vw) rotate(${e[5]}deg)`;
+        }
+      });
+    };
+
+    let boxes = document.getElementsByClassName("Box");
+    Array.from(boxes).forEach((element) => {
+      let boxtext = element.querySelector(".boxtext");
+      element.addEventListener("click", () => {
+        if (boxtext.innerText === "") {
+          boxtext.innerText = turn;
+          turn = changeTurn();
+          audioTurn.play();
+
+          // music.play();
+          checkwin();
+          if (!isgameover) {
+            document.getElementsByClassName("info")[0].innerText =
+              "Turn For " + turn;
+          }
+        }
+      });
+    });
+    Reset.addEventListener("click", () => {
+      let boxtexts = document.querySelectorAll(".boxtext");
+      Array.from(boxtexts).forEach((element) => {
+        element.innerText = "";
+      });
+      turn = "X";
+      isgameover = false;
+      document.getElementsByClassName("info")[0].innerText = "Turn For " + turn;
+      document
+        .querySelector(".gif")
+        .getElementsByTagName("img")[0].style.width = "0px";
+      document.getElementsByClassName("info")[0].style.color =
+        "rgb(55, 26, 63)";
+      document.getElementsByClassName("info")[0].style.fontSize = "70px";
+      document.querySelector(".line").style.width = "0%";
+      document.querySelector(".line").style.visibility = "hidden";
+    });
+  </script>
+  <!-- ____________________________SCRIPT END_______________________________ -->
+
+  <!-- ____________________________CSS START_______________________________ -->
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap");
+    body {
+      background-color: rgba(169, 167, 184, 0.61);
+    }
+    .heading {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      padding: 1px;
+      background-color: rgb(79, 79, 118);
+      color: rgb(201, 212, 223);
+      font-family: cursive;
+      border-radius: 1px;
+      text-align: center;
+    }
+    .gamecontainer {
+      margin-top: 5vh;
+      display: flex;
+      justify-content: center;
+    }
+    .gamecontainer .container {
+      display: grid;
+      grid-template-rows: repeat(3, 10vw);
+      grid-template-columns: repeat(3, 10vw);
+    }
+    .container div {
+      border: 3px solid black;
+    }
+
+    .Box {
+      font-size: 10vw;
+      font-family: "Nunito", sans-serif;
+      display: flex;
+      justify-content: center;
+    }
+    .Box:hover {
+      background-color: rgb(222, 219, 231);
+    }
+    .gif img {
+      width: 0px;
+    }
+    .info {
+      font-size: 70px;
+      font-weight: bold;
+      color: rgb(55, 26, 63);
+      margin: 20px;
+      padding: 20px 30px;
+    }
+
+    #Reset {
+      size: 50px;
+      background-color: rgb(190, 214, 216);
+      color: rgb(28, 63, 56);
+      border-radius: 2px;
+      padding: 15px 20px;
+    }
+    #welcome {
+      font-family: cursive;
+      margin-left: 10%;
+      padding: 10px;
+      background-color: rgb(201, 212, 223);
+      border-radius: 5px;
+    }
+    .line {
+      position: absolute;
+      background-color: #723b83;
+      transition: width 0.25s ease-in-out;
+    }
+
+    @media screen and (max-width: 800px) {
+      .gamecontainer {
+        flex-direction: column;
+        text-align: center;
+      }
+      .container {
+        margin-left: 35%;
+        grid-template-rows: repeat(3, 20vw);
+        grid-template-columns: repeat(3, 20vw);
+      }
+    }
+  </style>
+
+  <!-- ____________________________CSS END_______________________________ -->
+</html>
